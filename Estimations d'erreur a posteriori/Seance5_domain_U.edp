@@ -1,0 +1,31 @@
+// Parameter
+int n = 8; //mesh quality
+real xnu = 0.01; //viscosity
+real error = 0.005; //stabilization term
+real umax = 0.5;
+real L=1;
+border a(t=0,0.2){x=0 ;y=1-t ;label=1 ;} ;
+border b(t=0,0.2){x=t ;y=0.8 ;label=2 ;} ;
+border c(t=0,0.8){x=0.2 ;y=0.8-t ;label=2 ;} ;
+
+border d(t=0.2,0.8){x=t ;y=0 ;label=2 ;} ;
+border e(t=0,0.8){x=0.8 ;y=t ;label=2 ;} ;
+border ff(t=0.8,1.2){x=t ;y=0.8 ;label=2 ;} ;
+border g(t=0,0.8){x=1.2 ;y=0.8-t ;label=2 ;} ;
+border h(t=1.2,1.8){x=t ;y=0 ;label=2 ;} ;
+border j(t=0,0.8){x=1.8 ;y=t ;label=2 ;} ;
+border k(t=0,0.2){x=1.8+t ;y=0.8 ;label=2 ;} ;
+border l(t=0,0.2){x=2 ;y=0.8+t ;label=3 ;} ;
+border m(t=0,0.4){x=2-t ;y=1 ;label=2 ;} ;
+border o(t=0,0.8){x=1.6 ;y=1-t ;label=2 ;} ;
+border r(t=0,0.2){x=1.6-t ;y=0.2 ;label=2 ;} ;
+border s(t=0,0.8){x=1.4 ;y=0.2+t ;label=2 ;} ;
+border t(t=0,0.8){x=1.4-t ;y=1 ;label=2 ;} ;
+border w(t=0,0.8){x=0.6 ;y=1-t ;label=2 ;} ;
+border z(t=0,0.2){x=0.6-t ;y=0.2 ;label=2 ;} ;
+border aa(t=0.2,1){x=0.4 ;y=t ;label=2 ;} ;
+border bb(t=0,0.4){x=0.4-t ;y=1 ;label=2 ;} ;
+mesh Th =
+buildmesh(a(n)+b(n)+c(3*n)+d(2*n)+e(3*n)+ff(2*n)+g(3*n)+h(3*n)+j(3*n)+k(n)+l(n)+m(2*n)+o(3*n)+r(n)+s(3*n)+t(
+3*n)+w(3*n)+z(n)+aa(3*n)+bb(2*n));
+plot(Th);

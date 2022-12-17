@@ -1,0 +1,37 @@
+// Parameter
+int n = 9; //mesh quality
+real xnu = 0.01; //viscosity
+real error = 0.005; //stabilization term
+real umax = 0.5;
+real L=1;
+border a(t=0,1){x=t; y=0; label=2;};
+border b(t=0,1){x=1; y=t; label=1;};
+border c(t=0,1){x=1-t; y=1;label=2;};
+border d(t=0,1){x=0; y=1-t; label=3;};
+mesh Th = buildmesh (a(n) + b(n) + c(n) +d(n));
+//plot(Th);
+// Fespace
+fespace Uh(Th, P2);
+Uh Ux, Uy;
+Uh Vx, Vy;
+fespace Ph(Th, P1);
+
+Ph p;
+Ph q;
+// Macro
+macro grad(u) [dx(u), dy(u)] //
+macro Grad(U) [grad(U#x), grad(U#y)] //
+macro div(ux, uy) (dx(ux) + dy(uy)) //
+macro Div(U) div(U#x, U#y) //
+// Functions
+func f = umax* y*(L-y) / (L/2.)^2;
+// Problem
+problem Stokes ([Ux, Uy, p], [Vx, Vy, q])=
+ int2d(Th)(xnu * (Grad(U) : Grad(V))- p *Div(V)- q * Div(U)- error * p * q)
+ + on(1, Ux=f, Uy=0)
+ + on(2, Ux=0, Uy=0)
+ ;
+// Solve
+Stokes;
+// Plot
+plot([Ux, Uy]);
